@@ -1,0 +1,258 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>디아4 고유템 드랍처</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: 한 칸짜리 검색 도구. 상단 검색창 고정, 아래 결과 → 비었을 때는 우두머리 도감 */
+:root{
+  --bg:#17130f; --panel:#211b15; --line:#3a3027; --fg:#e9e1d4; --muted:#a39684;
+  --unique:#c9a25c; --mythic:#b98ad9; --legacy:#6fb3a6; --shared:#8ea1c4; --blood:#a8452f;
+  --display:"Nanum Myeongjo","Batang",serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:880px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
+header h1{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,36px);margin:0;letter-spacing:-.01em;text-wrap:balance}
+header h1 span{color:var(--unique)}
+header p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.searchbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:16px 12px;display:grid;gap:10px}
+.field{position:relative}
+#q{width:100%;font:inherit;font-size:17px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 44px 14px 16px;outline:none}
+#q:focus{border-color:var(--unique)}
+#clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--muted);font-size:20px;cursor:pointer;padding:6px 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 11px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--unique);color:#1b140c;border-color:var(--unique);font-weight:600}
+.chip:focus-visible,#q:focus-visible,button:focus-visible{outline:2px solid var(--unique);outline-offset:2px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.count{color:var(--muted);font-size:13px;margin:4px 0 12px}
+.results{display:grid;gap:10px}
+.item{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:grid;gap:8px;min-width:0}
+.item h3{margin:0;font-family:var(--display);font-size:19px;font-weight:700;color:var(--unique)}
+.item.mythic h3{color:var(--mythic)}
+.item.legacy h3{color:var(--legacy)}
+.item mark{background:none;color:inherit;text-decoration:underline;text-underline-offset:3px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.tag{border:1px solid var(--line);border-radius:3px;padding:1px 7px;color:var(--muted)}
+.tag.k-mythic{border-color:var(--mythic);color:var(--mythic)}
+.tag.k-legacy{border-color:var(--legacy);color:var(--legacy)}
+.tag.k-shared{border-color:var(--shared);color:var(--shared)}
+.src{display:grid;gap:6px}
+.src-row{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:baseline;border-top:1px solid var(--line);padding-top:8px}
+.src-row:first-child{border-top:0;padding-top:0}
+.boss{font-weight:600;white-space:nowrap}
+.boss button{all:unset;cursor:pointer;border-bottom:1px dotted var(--muted)}
+.boss button:hover{color:var(--unique)}
+.where{color:var(--muted);font-size:13px;min-width:0}
+.note{font-size:13px;color:var(--muted);margin:0}
+h2.sec{font-family:var(--display);font-size:20px;margin:28px 0 10px;display:flex;align-items:baseline;gap:10px}
+h2.sec small{font-family:var(--body);font-size:12px;color:var(--muted);font-weight:400}
+.bosses{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.bcard{all:unset;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;gap:4px}
+.bcard:hover{border-color:var(--unique)}
+.bcard:focus-visible{outline:2px solid var(--unique);outline-offset:2px}
+.bcard b{font-size:16px}
+.bcard .tier{font-size:11px;letter-spacing:.06em;color:var(--blood);font-weight:600}
+.bcard span.where{font-size:12.5px}
+.bossview table{width:100%;border-collapse:collapse;font-size:14px}
+.bossview td,.bossview th{text-align:left;padding:7px 8px;border-top:1px solid var(--line);vertical-align:top}
+.bossview th{color:var(--muted);font-weight:500;white-space:nowrap;width:90px}
+.bossview td button{all:unset;cursor:pointer;color:var(--fg)}
+.bossview td button:hover{color:var(--unique);text-decoration:underline}
+.tbl{overflow-x:auto}
+.back{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:4px;padding:4px 10px;cursor:pointer;margin-bottom:10px}
+.empty{color:var(--muted);padding:24px 0}
+footer{margin-top:40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+footer a{color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.item,.bcard{transition:border-color .15s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>디아블로4 <span>고유템</span> 드랍처</h1>
+    <p>시즌15 지옥의 유산 · 소굴 우두머리 표적 파밍 기준 (고행 1 이상)</p>
+  </header>
+
+  <div class="searchbar">
+    <div class="field">
+      <input id="q" type="search" autocomplete="off" placeholder="아이템 이름 검색 — 예: 하로가스, ㅎㄹㄱㅅ" aria-label="아이템 이름 검색">
+      <button id="clear" aria-label="검색어 지우기" hidden>×</button>
+    </div>
+    <div class="chips" id="classChips" role="group" aria-label="직업 필터"></div>
+  </div>
+
+  <main id="out"></main>
+
+  <footer>
+    드랍표는 시즌 중 핫픽스나 루트 테이블 변경으로 달라질 수 있습니다. 타락한 사신은 전담 드랍표가 확인되지 않아 제외했습니다.<br>
+    이 사이트는 비공식 팬 사이트이며 Blizzard Entertainment와 관련이 없습니다. 디아블로는 Blizzard Entertainment의 상표입니다.
+  </footer>
+</div>
+
+<script>
+const CLASSES=["야만용사","드루이드","강령술사","성기사","도적","원소술사","혼령사","악마술사"];
+const BOSSES=[
+ {n:"바르샨",tier:"소굴",loc:"하웨자르, 속삭이는 나무 근처 악의 굴길",req:"소굴 열쇠 1개",
+  공용:"베라티엘의 파편",d:["과잉 살상, 만보","가을의 왕관, 마녀의 큰지팡이, 맹위의 돌","나즈의 손, 교수형 집행인의 손","두 번째 나팔의 문장, 금빛 월계수의 화관","수리뿔, 죽음의 파반, 투기장 싸움꾼의 사기","흑마노 영혼, 바다의 의복, 전광의 손아귀","발라잔의 짚허리띠, 상처 포식자","아이그롬의 분열, 세 번 엮은 악몽, 오파님의 문장"]},
+ {n:"그리구아르",tier:"소굴",loc:"메마른 평원, 케드바르두 남쪽 참회자의 전당",req:"소굴 열쇠 1개",
+  공용:"고통탐식자의 팔목 장갑",d:["고르의 파멸적인 손 보호구, 콸케크의 힘","돌의 의지, 사냥꾼의 정점, 바실리스크","죽음의 손아귀, 죽음십자","태양의 낙인, 마티아스 경의 철벽","거장, 필사적인 행군","폭풍뿔의 공격, 망울, 화염폭풍의 환영","태양바램 전쟁용 의식 지팡이, 평화주의자의 인장","호라존의 씨앗, 세계파괴자의 손, 광기의 우리, 죄악의 아비"]},
+ {n:"얼음 속의 야수",tier:"소굴",loc:"조각난 봉우리, 키요바샤드 남서쪽 빙하의 틈새",req:"소굴 열쇠 1개",
+  공용:"펠가인의 인장",d:["가차없는 마음, 걸신들린 자의 반지","사악한 초승달, 황야의 합의, 아이리다의 거침없는 의지","아래에서 들려오는 울부짖음, 죽음 없는 얼굴","빛의 질책, 케타마르의 성물","고아를 만드는 자, 공작원의 인장","서리의 선물, 별똥별의 관, 만인지성","대지 경멸, 대악마의 수호","지옥사냥개의 발덮개, 카브락시스의 의지, 여덟 겹의 우상"]},
+ {n:"군주 지르",tier:"소굴",loc:"조각난 봉우리, 키요바샤드 동쪽 어둠에 물든 길",req:"소굴 열쇠 1개",
+  공용:"크팔의 부식된 인장",d:["심홍색의 전장, 이중 강타","차오르는 철월, 무명 고행자의 두르개, 가틀렌의 생득권","지르의 칼날, 생귀보르, 크루올의 포옹","아우리엘의 심판, 사법관의 글레이브투구","하늘사냥꾼, 칸두라스의 장막, 그림자십자","독사마술사의 송곳니, 람 에센의 지팡이, 서리피","꿈틀거리는 달의 반지, 정오 사냥의 반지","비가, 혐오의 만가, 살점 갑각"]},
+ {n:"우리바르",tier:"소굴",loc:"나한투, 키추크 인근 심판의 들판",req:"소굴 열쇠 1개",
+  공용:"엔의 축복",d:["부서지지 않는 사슬, 산의 분노의 어깨걸이","고인돌, 어둠의 포효, 검은날개의 킬트","헌신자의 복음, 라트마의 의지","전령의 샛별, 대성당의 노래","카시아의 은총, 바람살, 몸부림치는 속임수의 가락지","화염흉터, 얼음심장 브레이스, 녹아내린 가락지","태양새의 목가리개, 첫 숨결의 가락지","지옥불 호문쿨루스, 타오르는 시야의 검, 흉악한 고행의 머리쓰개"]},
+ {n:"증오의 사도",tier:"상급 소굴",loc:"나한투, 쿠라스트 부두 인근 사도의 굴",req:"상급 소굴 열쇠 1개",
+  공용:"만용",d:["유목민의 동경하는 마음, 파괴의 군대의 숙적, 못생긴 놈 투구","살점 분쇄봉, 이페의 섬뜩한 토템, 곰의 힘","어스름 결계, 피의 흔적, 뼈의 맹약","붉은 새벽의 문, 회색의 어깨걸이","에트나의 잃어버린 단검, 건달의 가죽옷, 가려진 선물","화염직조자, 시드헤 구속구, 탈 라샤의 오색찬란한 고리","프로테우스의 심장, 세파존텍","타타메트의 척추, 토르바알로스의 굴레, 다산의 문장"]},
+ {n:"두리엘",tier:"상급 소굴",loc:"케지스탄, 게아쿨 동쪽 갈라진 크레바스",req:"상급 소굴 열쇠 1개",
+  공용:"서슬판금",d:["차스갈의 세이버, 어둠의 추적자의 메달, 하로가스의 분노","초원방랑자의 서약, 조각난 룬석, 늙은 늑대의 징표","트래그울의 길, 절단자의 판금 갑옷, 지하왕관","하얀 비둘기의 호신부, 간청","규탄, 바다 군주의 좋은 장갑, 핏빛 장미의 띠","끝없는 분노의 지팡이, 푸른 장미, 전류의 남동석","과부거미의 거미줄, 우셰 낙 파","두리엘의 회초리, 황천의 팔목 장갑, 공포의 억지웃음, 몰루 살점결계"]},
+ {n:"안다리엘",tier:"상급 소굴",loc:"케지스탄, 타르사락 동쪽 매달린 자의 전당",req:"상급 소굴 열쇠 1개",
+  공용:"신 살해자 왕관",d:["선조의 맹세, 지옥망치, 스탈브레이크의 표징","만족을 모르는 분노, 폭풍의 동료, 초원방랑자의 인장","각성의 벽, 칠흑쐐기, 케시메의 유산","새벽불길, 은빛 장막","야수내림 장화, 암살자의 걸음, 니르미트루크의 죽음가면","오르시베인, 에사도라의 넘실거리는 카메오, 드로그난의 고뇌","적황색 갑각, 죽은 신의 발광","셋의 홀, 대악마의 대척점, 밤의 공포"]},
+ {n:"피투성이 도살자",tier:"상급 소굴",loc:"케지스탄, 게아쿨",req:"상급 소굴 열쇠 1개",
+  공용:"도살자의 식칼",d:["라말라드니의 역작, 사슬참화 쇠미늘, 붉은 열광의 반지","정화된 빛의 인도자, 아즈가의 심장, 황야의 분노","레오릭 왕의 철퇴, 붉은 축복, 원한 서린 힘줄","붉은 설교, 굳건한 영혼의 행진","강철 장미의 주먹, 이름 없는 자의 머리쓰개, 건달의 입맞춤","샤나르의 공명, 제레이의 지팡이, 잿불의 분노","밀사의 길, 헤샤 에 케순기","몰로크의 퍼덕이는 불길, 선혈 왕관의 못, 소름 끼치는 맹약, 지옥낙인 인장"]},
+ {n:"아스타로트",tier:"특수",loc:"고조되는 악몽 던전 마지막",req:"고조의 인장",
+  공용:"루시온의 왕관",d:["전투 무아지경, 산신의 발굽, 세 번째 칼날","야생심장의 갈망, 미친 늑대의 환희, 아이리다의 만가","피 말리는 비명, 핏빛 달의 무릎바지, 신성모독자 영혼의 반지","자카룸의 전령, 그리스월드의 작품","아시아라의 칸자르, 검투사의 승리, 어둠 속의 눈","조각난 겨울유리, 에수의 가보, 살얼음의 우박","크와틀리의 메아리, 케펠레케의 막대, 한밤중 태양의 반지","흑담비의 기도문, 기우는 세계의 발소리, 마멸의 구속구, 일백의 균열"]},
+ {n:"바르툭",tier:"특수",loc:"지옥불 군세",req:"지옥불 군세 나침반 + 불타는 에테르 666개",
+  공용:"푸른 서슬",d:["고르고라의 뜬 눈, 위대한 조리츠의 엄니 투구, 아리앗의 자세","캄신 평원방랑자, 대지 파괴자, 묠니르의 반지","무덤방랑자의 손, 파괴자, 고통의 징조","갈라진 밤, 아카디아","자비의 검, 하칸의 말, 그림자의 매듭끈","뱀의 홍채, 무한의 의복, 축 도관","에베와카의 조화, 충의의 어깨걸이","바알의 눈, 피의 돌, 극치의 손, 뒤틀린 자의 현장"]},
+];
+const BELIAL={n:"벨리알",loc:"케지스탄, 타르사락 서쪽 기만자의 궁전"};
+const SHARED={"무기":["도살자의 식칼","천 개의 눈 강탈자","녹물림 더크","푸른 서슬","베라티엘의 파편"],
+ "방어구":["참회의 경갑","명멸걸음","엔의 축복","서슬판금","영혼 낙인","운명의 주먹","서리불꽃","고통탐식자의 팔목 장갑","운명가죽","신 살해자 왕관","만용","새벽하늘 무릎받이","티볼트의 의지","라카노스의 자취","인내하는 신앙","루시온의 왕관"],
+ "장신구":["추방된 군주의 영물","피의 광기 우상","어머니의 품","크팔의 부식된 인장","웬디고 낙인","천둥신의 축복","펠가인의 인장","로크란의 영물"]};
+const LEGACY=[
+ ["레오릭의 왕관","모든 직업","투구",false],["천벌의 팔보호구","모든 직업","장갑",true],["요르단의 반지","모든 직업","반지",true],["꼬맹이의 블라우스","모든 직업","가슴",false],
+ ["아리옥의 바늘","야만용사 / 드루이드 / 혼령사","양손 미늘창",true],["앙리의 쥐잡이","원소술사 / 강령술사 / 악마술사","보조 장비",true],
+ ["인검","혼령사 제외 전 직업","한손 도검",true],["용광로","야만용사 / 드루이드 / 강령술사 / 성기사 / 악마술사","양손 철퇴",true],["메서슈미트의 도끼","야만용사 / 드루이드 / 강령술사 / 성기사 / 악마술사","양손 도끼",false]];
+const MYTHIC=[["안다리엘의 두개골","모든 직업"],["할리퀸 관모","모든 직업"],["영벌의 후예","모든 직업"],["거짓된 죽음의 수의","모든 직업"],["티리엘의 권능","모든 직업"],["셀리그의 녹은 심장","모든 직업"],["별 없는 하늘의 반지","모든 직업"],["아발리온 - 라이칸더의 창","드루이드 / 원소술사"],["궤멸자","혼령사 제외"],["정의의 검 엘드루인","혼령사 제외"],["박살난 맹세","야만용사 / 드루이드 / 혼령사"],["한아비","야만용사 / 강령술사 / 성기사 / 악마술사"],["전령 네세켐","혼령사"]];
+
+/* ---------- 인덱스 구성 ---------- */
+const items=new Map();
+const get=(name,kind)=>{if(!items.has(name))items.set(name,{name,kind,classes:new Set(),sources:[],tags:[]});return items.get(name)};
+const bossByName=Object.fromEntries(BOSSES.map(b=>[b.n,b]));
+BOSSES.forEach(b=>{
+  const s=get(b.공용,"unique");s.classes.add("공용");
+  s.sources.push({boss:b.n,label:"공용 전담"});
+  b.d.forEach((list,i)=>list.split(",").map(x=>x.trim()).forEach(nm=>{
+    const it=get(nm,"unique");it.classes.add(CLASSES[i]);it.sources.push({boss:b.n,label:CLASSES[i]+" 전담"});
+  }));
+});
+Object.entries(SHARED).forEach(([cat,list])=>list.forEach(nm=>{const it=get(nm,"unique");it.classes.add("공용");it.shared=cat}));
+LEGACY.forEach(([nm,cls,slot,am])=>{const it=get(nm,"legacy");it.cls=cls;it.slot=slot;it.amulet=am});
+MYTHIC.forEach(([nm,cls])=>{const it=get(nm,"mythic");it.cls=cls});
+const ALL=[...items.values()];
+
+/* ---------- 초성 검색 ---------- */
+const CHO="ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+const cho=s=>[...s].map(c=>{const k=c.charCodeAt(0)-0xAC00;return k>=0&&k<11172?CHO[Math.floor(k/588)]:c}).join("");
+const norm=s=>s.replace(/\s+/g,"").toLowerCase();
+ALL.forEach(it=>{it.key=norm(it.name);it.cho=cho(it.key)});
+const isChoOnly=q=>/^[ㄱ-ㅎ]+$/.test(q);
+
+/* ---------- 상태 ---------- */
+const $=s=>document.querySelector(s);
+const q=$("#q"),out=$("#out"),clearBtn=$("#clear");
+let cls="전체";
+try{const v=localStorage.getItem("d4cls");if(v&&(v==="전체"||CLASSES.includes(v)))cls=v}catch(e){}
+const chipsEl=$("#classChips");
+["전체",...CLASSES].forEach(c=>{const b=document.createElement("button");b.className="chip";b.textContent=c;b.setAttribute("aria-pressed",c===cls);
+  b.onclick=()=>{cls=c;try{localStorage.setItem("d4cls",c)}catch(e){};chipsEl.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.textContent===c));render()};chipsEl.appendChild(b)});
+
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function hl(name,qq){
+  if(!qq||isChoOnly(qq))return esc(name);
+  const i=name.indexOf(qq.trim());
+  if(i<0)return esc(name);
+  return esc(name.slice(0,i))+"<mark>"+esc(name.slice(i,i+qq.trim().length))+"</mark>"+esc(name.slice(i+qq.trim().length));
+}
+function classOk(it){
+  if(cls==="전체")return true;
+  if(it.kind==="unique")return it.classes.has(cls)||it.classes.has("공용");
+  const c=it.cls;
+  if(c==="모든 직업")return true;
+  if(c.includes("제외"))return !c.includes(cls);
+  return c.includes(cls);
+}
+function bossBtn(n){return `<button data-boss="${esc(n)}">${esc(n)}</button>`}
+
+function itemCard(it,qq){
+  const tags=[];let body="";
+  if(it.kind==="mythic"){
+    tags.push(`<span class="tag k-mythic">신화 고유</span>`,`<span class="tag">${esc(it.cls)}</span>`);
+    body=`<p class="note">특정 우두머리 전담이 아니라 모든 소굴 우두머리 보상에서 직업·장비 제한에 맞게 낮은 확률로 나옵니다. <b>벨리알</b>이 신화 드랍 확률이 가장 높습니다 (${esc(BELIAL.loc)}).</p>`;
+  }else if(it.kind==="legacy"){
+    tags.push(`<span class="tag k-legacy">시즌15 신규 유산</span>`,`<span class="tag">${esc(it.slot)}</span>`,`<span class="tag">${esc(it.cls)}</span>`,`<span class="tag">고유 부적 ${it.amulet?"가능":"불가"}</span>`);
+    body=`<p class="note">전담 우두머리가 확인되지 않았습니다. 일반 드랍, 시즌 콘텐츠, 보상 상자, 제작을 함께 활용하세요.</p>`;
+  }else{
+    const cl=[...it.classes].filter(c=>c!=="공용");
+    tags.push(`<span class="tag">일반 고유</span>`);
+    if(cl.length)tags.push(...cl.map(c=>`<span class="tag">${c}</span>`));
+    if(it.shared)tags.push(`<span class="tag k-shared">공용 풀 · ${it.shared}</span>`);
+    const rows=it.sources.map(s=>{const b=bossByName[s.boss];return `<div class="src-row"><span class="boss">${bossBtn(s.boss)}</span><span class="where">${esc(s.label)} · ${esc(b.tier)} · ${esc(b.loc)} · <b>${esc(b.req)}</b></span></div>`}).join("");
+    body=`<div class="src">${rows}</div>`;
+    if(it.shared)body+=`<p class="note">여러 소굴 우두머리의 공용 풀에서도 나옵니다${it.sources.length?" — 위 우두머리를 우선 파밍하세요":" — 필드 드랍과 호라드림의 함 제작을 병행하세요"}.</p>`;
+    if(it.sources.length)body+=`<p class="note">벨리알 처치 후 ${it.sources.map(s=>esc(s.boss)).filter((v,i,a)=>a.indexOf(v)===i).join(" / ")} 전리품 풀을 선택해도 노릴 수 있습니다.</p>`;
+  }
+  return `<article class="item ${it.kind}"><h3>${hl(it.name,qq)}</h3><div class="tags">${tags.join("")}</div>${body}</article>`;
+}
+
+function search(raw){
+  const qq=norm(raw);if(!qq)return[];
+  const choMode=isChoOnly(qq);
+  const scored=[];
+  for(const it of ALL){
+    if(!classOk(it))continue;
+    let s=-1;
+    if(choMode){const i=it.cho.indexOf(qq);if(i>=0)s=i===0?2:1}
+    else{const i=it.key.indexOf(qq);if(i>=0)s=i===0?3:2;else{const ci=it.cho.indexOf(cho(qq));if(ci>=0&&/[ㄱ-ㅎ]/.test(raw))s=1}}
+    if(s>=0)scored.push([s,it]);
+  }
+  return scored.sort((a,b)=>b[0]-a[0]||a[1].name.localeCompare(b[1].name,"ko")).map(x=>x[1]);
+}
+
+function renderHome(){
+  const tiers=["소굴","상급 소굴","특수"];
+  let h=`<p class="hint">아이템 이름 일부나 초성으로 찾을 수 있습니다. 직업을 고르면 그 직업이 쓰는 아이템만 보여요.</p>`;
+  tiers.forEach(t=>{
+    h+=`<h2 class="sec">${t==="특수"?"특수 우두머리":t+" 우두머리"}<small>${t==="소굴"?"소굴 열쇠":t==="상급 소굴"?"상급 소굴 열쇠":"별도 입장 재료"}</small></h2><div class="bosses">`;
+    BOSSES.filter(b=>b.tier===t).forEach(b=>{h+=`<button class="bcard" data-boss="${esc(b.n)}"><span class="tier">${esc(b.req)}</span><b>${esc(b.n)}</b><span class="where">${esc(b.loc)}</span></button>`});
+    if(t==="특수")h+=`<div class="bcard" style="cursor:default"><span class="tier">전리품 풀 선택</span><b>벨리알</b><span class="where">${esc(BELIAL.loc)} · 다른 우두머리의 드랍표를 골라 적용, 신화 확률 높음</span></div>`;
+    h+=`</div>`;
+  });
+  h+=`<h2 class="sec">신화 고유<small>모든 우두머리 · 낮은 확률</small></h2><div class="tags">${MYTHIC.map(m=>`<span class="tag k-mythic">${esc(m[0])}</span>`).join("")}</div>`;
+  h+=`<h2 class="sec">시즌15 신규 유산 고유<small>전담 우두머리 미확인</small></h2><div class="tags">${LEGACY.map(m=>`<span class="tag k-legacy">${esc(m[0])}</span>`).join("")}</div>`;
+  out.innerHTML=h;
+}
+
+function renderBoss(n){
+  const b=bossByName[n];if(!b)return;
+  const rows=CLASSES.map((c,i)=>(cls==="전체"||cls===c)?`<tr><th>${c}</th><td>${b.d[i].split(",").map(x=>`<button data-item="${esc(x.trim())}">${esc(x.trim())}</button>`).join(", ")}</td></tr>`:"").join("");
+  out.innerHTML=`<div class="bossview"><button class="back" data-home>← 전체 우두머리</button>
+  <h2 class="sec" style="margin-top:4px">${esc(b.n)}<small>${esc(b.tier)} · ${esc(b.req)}</small></h2>
+  <p class="where" style="margin:0 0 12px">${esc(b.loc)}</p>
+  <div class="tbl"><table><tr><th>공용</th><td><button data-item="${esc(b.공용)}">${esc(b.공용)}</button></td></tr>${rows}</table></div>
+  <p class="note" style="margin-top:12px">한 번 잡을 때 목록이 모두 나오거나 확정 드랍되는 것은 아닙니다. 신화 고유는 별도 확률로 함께 나옵니다.</p></div>`;
+  window.scrollTo({top:0});
+}
+
+function render(){
+  const raw=q.value;clearBtn.hidden=!raw;
+  if(!norm(raw)){renderHome();return}
+  const res=search(raw);
+  out.innerHTML=`<p class="count">${res.length}개 아이템${cls!=="전체"?` · ${cls} 기준`:""}</p>`+
+   (res.length?`<div class="results">${res.slice(0,60).map(it=>itemCard(it,raw)).join("")}</div>`:`<p class="empty">“${esc(raw)}”에 해당하는 아이템이 없습니다. 띄어쓰기 없이 일부만 입력하거나 초성으로 검색해 보세요${cls!=="전체"?", 또는 직업 필터를 ‘전체’로 바꿔 보세요":""}.</p>`);
+}
+
+q.addEventListener("input",render);
+clearBtn.onclick=()=>{q.value="";render();q.focus()};
+out.addEventListener("click",e=>{
+  const bb=e.target.closest("[data-boss]");if(bb){renderBoss(bb.dataset.boss);return}
+  const ib=e.target.closest("[data-item]");if(ib){q.value=ib.dataset.item;render();q.focus();return}
+  if(e.target.closest("[data-home]")){q.value="";render()}
+});
+render();
+</script>
+
+</body></html>

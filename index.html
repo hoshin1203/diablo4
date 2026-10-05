@@ -1,5 +1,16 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>디아4 고유템 드랍처</title>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>디아4 드랍처·룬워드</title>
+<meta name="description" content="디아블로4 시즌15 고유·신화 아이템 드랍 우두머리와 위치, 룬워드 제작 공식과 옵션을 이름·초성·룬으로 검색합니다.">
+<meta name="theme-color" content="#17130f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="디아블로4 고유템 드랍처 · 룬워드 검색">
+<meta property="og:description" content="디아블로4 시즌15 고유·신화 아이템 드랍 우두머리와 위치, 룬워드 제작 공식과 옵션을 이름·초성·룬으로 검색합니다.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2317130f'/%3E%3Cpath d='M32 8 52 32 32 56 12 32Z' fill='none' stroke='%23c9a25c' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23a8452f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
@@ -8,12 +19,17 @@
 :root{
   --bg:#17130f; --panel:#211b15; --line:#3a3027; --fg:#e9e1d4; --muted:#a39684;
   --unique:#c9a25c; --mythic:#b98ad9; --legacy:#6fb3a6; --shared:#8ea1c4; --blood:#a8452f;
+  --rune:#7cc4b4; --rune-bg:#1b2420; --rune-line:#34463f;
   --display:"Nanum Myeongjo","Batang",serif;
   --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;word-break:keep-all;overflow-wrap:anywhere}
 .wrap{max-width:880px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
 header h1{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,36px);margin:0;letter-spacing:-.01em;text-wrap:balance}
 header h1 span{color:var(--unique)}
@@ -66,19 +82,53 @@ h2.sec small{font-family:var(--body);font-size:12px;color:var(--muted);font-weig
 .back{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:4px;padding:4px 10px;cursor:pointer;margin-bottom:10px}
 .empty{color:var(--muted);padding:24px 0}
 footer{margin-top:40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
-footer a{color:var(--muted)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line)}
+.tab{font:inherit;font-size:15px;font-weight:600;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:8px 14px;cursor:pointer;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--unique)}
+.item.rw h3{color:var(--rune)}
+.rw-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 12px}
+.lvl{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.formula{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.formula i{font-style:normal;color:var(--muted)}
+.rune{all:unset;cursor:pointer;display:inline-flex;align-items:baseline;gap:4px;border:1px solid var(--rune-line);background:var(--rune-bg);color:var(--fg);border-radius:4px;padding:2px 8px;font-size:14px;font-weight:600}
+.rune small{font-weight:400;color:var(--muted);font-size:11px}
+.rune:hover,.rune[aria-pressed="true"]{border-color:var(--rune);color:var(--rune)}
+.rune[aria-pressed="true"]{background:var(--rune);color:#10201d}
+.rune[aria-pressed="true"] small{color:#10201d}
+.rune:focus-visible{outline:2px solid var(--rune);outline-offset:2px}
+.fx{margin:0;padding:0;list-style:none;display:grid;gap:3px;font-size:14px}
+.fx li{padding-left:12px;position:relative}
+.fx li::before{content:"";position:absolute;left:0;top:.7em;width:5px;height:1px;background:var(--muted)}
+.fx li.base{padding-left:0;color:var(--muted)}
+.fx li.base::before{display:none}
+.fx li.uniq{color:var(--rune);padding-left:0;margin-top:4px}
+.fx li.uniq::before{display:none}
+.ga{color:var(--muted);font-size:12px;margin-left:3px;white-space:nowrap}
+.runebar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.runebar .arrow{color:var(--line);font-size:12px}
+.tips{display:grid;gap:10px;font-size:14px}
+.tips section{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 16px}
+.tips h3{margin:0 0 6px;font-size:15px}
+.tips ul{margin:0;padding-left:18px;display:grid;gap:3px}
+.linkbtn{all:unset;cursor:pointer;color:var(--rune);font-size:13px;border-bottom:1px dotted var(--rune)}
 @media (prefers-reduced-motion:no-preference){.item,.bcard{transition:border-color .15s}}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header>
-    <h1>디아블로4 <span>고유템</span> 드랍처</h1>
-    <p>시즌15 지옥의 유산 · 소굴 우두머리 표적 파밍 기준 (고행 1 이상)</p>
+    <h1>디아블로4 <span>고유템</span> 드랍처 · 룬워드</h1>
+    <p>시즌15 지옥의 유산 · 소굴 우두머리 표적 파밍(고행 1 이상)과 룬워드 공식</p>
   </header>
 
   <div class="searchbar">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-drops" data-tab="drops">고유템 드랍처</button>
+      <button class="tab" role="tab" id="tab-runewords" data-tab="runewords">룬워드</button>
+    </div>
     <div class="field">
-      <input id="q" type="search" autocomplete="off" placeholder="아이템 이름 검색 — 예: 하로가스, ㅎㄹㄱㅅ" aria-label="아이템 이름 검색">
+      <input id="q" type="search" autocomplete="off" placeholder="아이템·룬워드·룬 검색 (예: 수수께끼, 베르)" aria-label="아이템, 룬워드, 룬 이름 검색">
       <button id="clear" aria-label="검색어 지우기" hidden>×</button>
     </div>
     <div class="chips" id="classChips" role="group" aria-label="직업 필터"></div>
@@ -87,7 +137,7 @@ footer a{color:var(--muted)}
   <main id="out"></main>
 
   <footer>
-    드랍표는 시즌 중 핫픽스나 루트 테이블 변경으로 달라질 수 있습니다. 타락한 사신은 전담 드랍표가 확인되지 않아 제외했습니다.<br>
+    드랍표는 시즌 중 핫픽스나 루트 테이블 변경으로 달라질 수 있습니다. 타락한 사신은 전담 드랍표가 확인되지 않아 제외했습니다. 룬워드 수치는 시즌15 기준이며 패치로 바뀔 수 있습니다.<br>
     이 사이트는 비공식 팬 사이트이며 Blizzard Entertainment와 관련이 없습니다. 디아블로는 Blizzard Entertainment의 상표입니다.
   </footer>
 </div>
@@ -151,21 +201,63 @@ const norm=s=>s.replace(/\s+/g,"").toLowerCase();
 ALL.forEach(it=>{it.key=norm(it.name);it.cho=cho(it.key)});
 const isChoOnly=q=>/^[ㄱ-ㅎ]+$/.test(q);
 
+/* ---------- 룬워드 데이터 ---------- */
+const RUNES=[["Tir","티르"],["Eth","에드"],["Ith","아이드"],["Tal","탈"],["Ral","랄"],["Ort","오르트"],["Thul","주울"],["Amn","앰"],["Sol","솔"],["Mal","말"],["Ist","이스트"],["Vex","벡스"],["Ohm","오움"],["Lo","로"],["Ber","베르"],["Jah","자"]];
+const RUNE_KO=Object.fromEntries(RUNES);
+const RUNE_IDX=Object.fromEntries(RUNES.map((r,i)=>[r[0],i]));
+const ONE_HAND="도끼, 단검, 도리깨, 철퇴, 낫, 도검, 마법봉, 중심점, 토템";
+const TWO_HAND="양손 낫, 양손 도끼, 활, 쇠뇌, 글레이브, 양손 철퇴, 미늘창, 육척봉, 지팡이, 양손 도검";
+const SHIELD_BASE="방패막기 확률 20.0%, 주 장비 무기 공격력 +100%";
+/* [이름, 부위, 룬, 요구 레벨, 기본 속성, 옵션[], 고유 효과] */
+const RW=[
+ ["잠행","가슴 방어구",["Tal","Eth"],17,"",["최대 생명력 +[1,831 - 2,200] (*2,750)","공격 속도 +25.0% (*31.3%)","방해 효과 감소 25.0% (*31.3%)","자원 생성량 15.0% (*18.8%)","이동 속도 +25% (*31%)","피해 감소 15.0% (*18.8%)"],""],
+ ["잎새","지팡이",["Tir","Ral"],19,"",["처치 시 주 자원 생성 +4 (*5)","냉기 저항 +35.0% (*43.8%)","자원 생성량 20.0% (*25.0%)"],""],
+ ["고대인의 서약","중심점, 토템, 방패",["Ral","Ort","Tal"],21,"[방패] "+SHIELD_BASE,["공격력 +35% (*44%)","냉기/화염/번개/독 저항 각 +35.0% (*43.8%)","피해 감소 35.0% (*43.8%)"],""],
+ ["신성한 천둥","철퇴, 도리깨",["Eth","Ral","Ort","Tal"],21,"",["번개 저항 +35.0% (*43.8%)","공격력 +50% (*63%)","행운의 적중 확률 +20.0% (*25.0%)"],"짜릿한 에너지를 발산해, 맞은 적이 3초 동안 플레이어에게 받는 신성/화염/번개/물리 피해가 [20 - 35]% 증가"],
+ ["귀감","단검",["Tal","Ort","Thul"],21,"방패막기 확률 30.0%",["공격력 +50% (*63%)","모든 능력치 +10.0% (*12.5%)","극대화 확률 +[10.0 - 20.0]% (*25.0%)","모든 원소 저항 +[325 - 400] (*500)","행운의 적중: 최대 40% 확률로 10초간 중독 피해 [1,100 - 2,700] (*3,375)"],""],
+ ["서풍","활, 쇠뇌",["Ort","Eth"],21,"",["회피 확률 +25.0% (*31.3%)","공격 속도 +25.0% (*31.3%)","이동 속도 +25% (*31%)","공격력 +125% (*156%)","행운의 적중: 최대 40% 확률로 번개 피해 +[3,000 - 4,800] (*6,000)"],"회피할 때마다 먼지 돌풍 방출"],
+ ["모서리",TWO_HAND,["Tir","Tal","Amn"],25,"골동품 상인 추가 아이템 확률 +15.0%",["공격 속도 +35.0% (*43.8%)","모든 능력치 +[300 - 360] (*450)","악마/언데드에게 주는 피해 각 +200.0% (*250.0%)","가시 +[699 - 961] (*1,201)","행운의 적중: 최대 40% 확률로 10초간 중독 피해 [2,200 - 5,400] (*6,750)"],""],
+ ["왕의 은총","철퇴, 도리깨, 도검",["Amn","Ral","Thul"],25,"",["악마/언데드에게 주는 피해 각 +100.0% (*125.0%)","적중 시 생명력 회복 +[789 - 948] (*1,185)","행운의 적중 확률 +50.0% (*62.5%)","공격력 +75% (*94%)"],""],
+ ["영혼 (무기)",ONE_HAND,["Tal","Thul","Ort","Amn"],25,"",["모든 기술 +5 (*6)","공격 속도 +[25.0 - 35.0]% (*43.8%)","공격력 +50% (*63%)","최대 자원 +[20 - 56] (*70)","방해 효과 감소 50.0% (*62.5%)"],""],
+ ["영혼 (방패)","방패",["Tal","Thul","Ort","Amn"],25,SHIELD_BASE,["모든 기술 +5 (*6)","공격 속도 +[25.0 - 35.0]% (*43.8%)","최대 생명력 +[1,831 - 2,200] (*2,750)","최대 자원 +[20 - 56] (*70)","방해 효과 감소 50.0% (*62.5%)"],""],
+ ["강함",ONE_HAND,["Amn","Tir"],25,"행운의 적중: 최대 25.0% 확률로 강타 적용",["공격력 +50% (*63%)","힘 +10.0% (*12.5%)","최대 생명력 +[1,831 - 2,200] (*2,750)","적중 시 생명력 회복 +[789 - 948] (*1,185)","처치 시 주 자원 생성 +2 (*3)"],""],
+ ["통찰","지팡이, 활, 쇠뇌, 글레이브, 미늘창, 육척봉, 양손 낫",["Ral","Tir","Tal","Sol"],27,"",["공격 속도 +35.0% (*43.8%)","극대화 확률 +[16.0 - 46.0]% (*57.5%)","무기 공격력 +[207 - 345] (*431)","모든 능력치 +[300 - 360] (*450)","극대화 피해 +200% (*250%)"],""],
+ ["전승","투구",["Ort","Sol"],27,"",["모든 기술 +2 (*3)","최대 자원 +25 (*31)","처치 시 주 자원 생성 +2 (*3)","피해 감소 10.0% (*12.5%)","번개 저항 +[2,275 - 2,800] (*3,500)","방어도 +[1,963 - 2,500] (*3,125)"],""],
+ ["신중","가슴 방어구",["Mal","Tir"],49,"파괴 불가",["모든 원소 저항 +500 (*625)","피해 감소 10.0% (*12.5%)","방해 효과 감소 25.0% (*31.3%)","총 방어도 +[20.0 - 35.0]% (*43.8%)","처치 시 주 자원 생성 +2 (*3)","회피 확률 10.0% (*12.5%)"],""],
+ ["비","가슴 방어구",["Ort","Mal","Ith"],49,"",["최대 자원 +[25 - 40] (*50)","자연 마법 기술 +5 (*6)","피해 감소 10.0% (*12.5%)","번개 저항 +35.0% (*43.8%)","회피 확률 10.0% (*12.5%)"],"공격 시 최대 [15 - 30]% 확률로 15등급 드루이드 회오리바람 방출 / 회피 시 50% 확률로 15등급 드루이드 회오리 갑옷 방출"],
+ ["소집",ONE_HAND,["Amn","Ral","Mal","Ist","Ohm"],57,"",["무기 공격력 +[200 - 250] (*312)","모든 기술 +1 (*2)","외침 기술 +5 (*6)","공격력 +40% (*50%)","공격 속도 +40.0% (*50.0%)"],"외침 기술 영향을 받는 동안 모든 기술 등급 +5, 최대 생명력 +15%, 최대 주 자원 +15%"],
+ ["슬픔","도검, 도끼",["Eth","Tir","Lo","Mal","Ral"],59,"위상 칼날, 광전사 도끼 파괴 불가",["무기 공격력 +[750 - 1,000] (*1,250)","치명적 공격 확률 +20.0% (*25.0%)","공격 속도 +[30.0 - 40.0]% (*50.0%)","악마에게 주는 피해 +100.0% (*125.0%)","처치 시 주 자원 생성 +2 (*3)"],"직접 피해를 주면 5초에 걸쳐 40% 보너스 중독 피해"],
+ ["무한",TWO_HAND,["Ber","Mal","Ber","Ist"],63,"행운의 적중: 최대 40.0% 확률로 강타 적용",["이동 속도 +35% (*44%)","최대 생명력 +[3,662 - 4,400] (*5,500)","금화 획득 확률 +[100 - 200]% (*250%)"],"적 처치 시 50% 확률로 20등급 연쇄 번개 방출, 22등급 회오리 갑옷 지속 효과 획득, 근거리 적 취약 및 받는 피해 125% 증가"],
+ ["수수께끼","가슴 방어구",["Jah","Ith","Ber"],65,"",["모든 기술 +2 (*3)","이동 속도 +45% (*56%)","피해 감소 12.0% (*15.0%)","최대 생명력 +40.0% (*50.0%)","방어도 +[981 - 1,225] (*1,531)"],"피하기가 순간이동(원소술사)으로 바뀌며 주 자원 33 소모"],
+ ["불사조 (무기)",ONE_HAND,["Vex","Vex","Lo","Jah"],65,"",["처치 시 생명력 +[526 - 632] (*790)","행운의 적중: 최대 40% 확률로 화염 피해 +[1,500 - 2,400] (*3,000)","치명적 공격 확률 +20.0% (*25.0%)","공격력 +50% (*63%)"],"레벨 업 시 40등급 화염 고리 방출, 공격 시 [15 - 30]% 확률로 22등급 화염 창 방출"],
+ ["불사조 (방패)","방패",["Vex","Vex","Lo","Jah"],65,SHIELD_BASE,["처치 시 생명력 +[526 - 632] (*790)","화염 저항 +35.0% (*43.8%)","피해 감소 10.0% (*12.5%)","치명적 공격 확률 +20.0% (*25.0%)","공격력 +50% (*63%)"],"레벨 업 시 40등급 화염 고리 방출, 공격 시 [15 - 30]% 확률로 22등급 화염 창 방출"],
+].map(([name,slots,runes,lvl,base,fx,uniq])=>({name,slots,runes,lvl,base,fx,uniq,key:norm(name),cho:cho(norm(name)),text:norm([slots,base,...fx,uniq].join(" "))}));
+
 /* ---------- 상태 ---------- */
 const $=s=>document.querySelector(s);
 const q=$("#q"),out=$("#out"),clearBtn=$("#clear");
-let cls="전체";
-try{const v=localStorage.getItem("d4cls");if(v&&(v==="전체"||CLASSES.includes(v)))cls=v}catch(e){}
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let cls="전체";{const v=store.get("d4cls");if(v&&(v==="전체"||CLASSES.includes(v)))cls=v}
+let tab=location.hash==="#runewords"?"runewords":location.hash==="#drops"?"drops":(store.get("d4tab")==="runewords"?"runewords":"drops");
+let picked=new Set();
 const chipsEl=$("#classChips");
 ["전체",...CLASSES].forEach(c=>{const b=document.createElement("button");b.className="chip";b.textContent=c;b.setAttribute("aria-pressed",c===cls);
-  b.onclick=()=>{cls=c;try{localStorage.setItem("d4cls",c)}catch(e){};chipsEl.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.textContent===c));render()};chipsEl.appendChild(b)});
+  b.onclick=()=>{cls=c;store.set("d4cls",c);chipsEl.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.textContent===c));render()};chipsEl.appendChild(b)});
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>setTab(t.dataset.tab));
+function setTab(t){
+  tab=t;store.set("d4tab",t);
+  try{history.replaceState(null,"","#"+t)}catch(e){}
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab===t));
+  chipsEl.hidden=t!=="drops";
+  render();
+}
 
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function hl(name,qq){
-  if(!qq||isChoOnly(qq))return esc(name);
-  const i=name.indexOf(qq.trim());
+  if(!qq||isChoOnly(norm(qq)))return esc(name);
+  const t=qq.trim(),i=name.indexOf(t);
   if(i<0)return esc(name);
-  return esc(name.slice(0,i))+"<mark>"+esc(name.slice(i,i+qq.trim().length))+"</mark>"+esc(name.slice(i+qq.trim().length));
+  return esc(name.slice(0,i))+"<mark>"+esc(name.slice(i,i+t.length))+"</mark>"+esc(name.slice(i+t.length));
 }
 function classOk(it){
   if(cls==="전체")return true;
@@ -181,7 +273,7 @@ function itemCard(it,qq){
   const tags=[];let body="";
   if(it.kind==="mythic"){
     tags.push(`<span class="tag k-mythic">신화 고유</span>`,`<span class="tag">${esc(it.cls)}</span>`);
-    body=`<p class="note">특정 우두머리 전담이 아니라 모든 소굴 우두머리 보상에서 직업·장비 제한에 맞게 낮은 확률로 나옵니다. <b>벨리알</b>이 신화 드랍 확률이 가장 높습니다 (${esc(BELIAL.loc)}).</p>`;
+    body=`<p class="note">특정 우두머리 전담이 아니라 모든 소굴 우두머리 보상에서 직업·장비 제한에 맞게 낮은 확률로 나옵니다. <b>벨리알</b>이 신화 드랍 확률이 가장 높습니다 (${esc(BELIAL.loc)}). 룬워드 아이템을 큐브로 신화 업그레이드하는 방법도 있습니다.</p>`;
   }else if(it.kind==="legacy"){
     tags.push(`<span class="tag k-legacy">시즌15 신규 유산</span>`,`<span class="tag">${esc(it.slot)}</span>`,`<span class="tag">${esc(it.cls)}</span>`,`<span class="tag">고유 부적 ${it.amulet?"가능":"불가"}</span>`);
     body=`<p class="note">전담 우두머리가 확인되지 않았습니다. 일반 드랍, 시즌 콘텐츠, 보상 상자, 제작을 함께 활용하세요.</p>`;
@@ -198,10 +290,30 @@ function itemCard(it,qq){
   return `<article class="item ${it.kind}"><h3>${hl(it.name,qq)}</h3><div class="tags">${tags.join("")}</div>${body}</article>`;
 }
 
-function search(raw){
+const fxHtml=s=>esc(s).replace(/\(\*([^)]+)\)/g,'<span class="ga">상급 $1</span>');
+function runePill(code,pressed){return `<button class="rune" data-rune="${code}"${pressed!==undefined?` aria-pressed="${pressed}"`:""}>${RUNE_KO[code]}<small>${code}</small></button>`}
+function rwCard(r,qq){
+  const runes=r.runes.map(c=>runePill(c)).join("<i>+</i>");
+  const li=[];
+  if(r.base)li.push(`<li class="base">${fxHtml(r.base)}</li>`);
+  r.fx.forEach(f=>li.push(`<li>${fxHtml(f)}</li>`));
+  if(r.uniq)li.push(`<li class="uniq">고유 효과 · ${fxHtml(r.uniq)}</li>`);
+  return `<article class="item rw"><div class="rw-head"><h3>${hl(r.name,qq)}</h3><span class="lvl">요구 레벨 ${r.lvl}</span></div>
+  <div class="tags"><span class="tag">룬워드</span>${r.slots.split(",").map(s=>`<span class="tag">${esc(s.trim())}</span>`).join("")}</div>
+  <div class="formula">${runes}</div><ul class="fx">${li.join("")}</ul></article>`;
+}
+function runeInfo(code){
+  const i=RUNE_IDX[code],prev=RUNES[i-1],next=RUNES[i+1];
+  const uses=RW.filter(r=>r.runes.includes(code));
+  const chain=[prev&&`${prev[1]} → `,`<b>${RUNE_KO[code]}</b>`,next&&` → ${next[1]}`].filter(Boolean).join("");
+  return `<article class="item rw"><div class="rw-head"><h3>룬: ${RUNE_KO[code]} (${code})</h3><span class="lvl">${i+1}단계 / 16</span></div>
+  <p class="note">호라드릭 큐브 업그레이드: ${chain}${!prev?" (가장 낮은 룬)":""}${!next?" (가장 높은 룬)":""}</p>
+  <p class="note">이 룬이 들어가는 룬워드 ${uses.length}개${uses.length?": "+uses.map(r=>esc(r.name)).join(", "):""}</p></article>`;
+}
+
+function searchItems(raw){
   const qq=norm(raw);if(!qq)return[];
-  const choMode=isChoOnly(qq);
-  const scored=[];
+  const choMode=isChoOnly(qq),scored=[];
   for(const it of ALL){
     if(!classOk(it))continue;
     let s=-1;
@@ -211,8 +323,29 @@ function search(raw){
   }
   return scored.sort((a,b)=>b[0]-a[0]||a[1].name.localeCompare(b[1].name,"ko")).map(x=>x[1]);
 }
+function matchRune(raw){
+  const qq=norm(raw);if(!qq)return null;
+  const r=RUNES.find(([en,ko])=>ko===qq||en.toLowerCase()===qq);
+  return r?r[0]:null;
+}
+function searchRunewords(raw){
+  const qq=norm(raw);if(!qq)return[];
+  const choMode=isChoOnly(qq),rune=matchRune(raw),scored=[];
+  for(const r of RW){
+    let s=-1;
+    if(choMode){if(r.cho.includes(qq))s=2}
+    else{
+      const i=r.key.indexOf(qq);
+      if(i>=0)s=i===0?4:3;
+      else if(rune&&r.runes.includes(rune))s=2;
+      else if(qq.length>=2&&r.text.includes(qq))s=1;
+    }
+    if(s>=0)scored.push([s,r]);
+  }
+  return scored.sort((a,b)=>b[0]-a[0]||a[1].lvl-b[1].lvl).map(x=>x[1]);
+}
 
-function renderHome(){
+function renderDropsHome(){
   const tiers=["소굴","상급 소굴","특수"];
   let h=`<p class="hint">아이템 이름 일부나 초성으로 찾을 수 있습니다. 직업을 고르면 그 직업이 쓰는 아이템만 보여요.</p>`;
   tiers.forEach(t=>{
@@ -226,8 +359,37 @@ function renderHome(){
   out.innerHTML=h;
 }
 
+function renderRunewordsHome(){
+  const bar=RUNES.map(([en],i)=>runePill(en,picked.has(en))+(i<RUNES.length-1?`<span class="arrow" aria-hidden="true">›</span>`:"")).join("");
+  const list=RW.filter(r=>[...picked].every(p=>r.runes.includes(p)));
+  let h=`<p class="hint">룬을 누르면 그 룬이 들어가는 룬워드만 보여요. 여러 개를 누르면 모두 들어가는 것만 남습니다. 룬은 왼쪽부터 낮은 단계이고, 호라드릭 큐브로 바로 다음 단계로 올릴 수 있어요.</p>
+  <div class="runebar" style="margin-top:10px">${bar}</div>
+  <p class="count" style="margin-top:14px">${list.length}개 룬워드${picked.size?` · ${[...picked].map(c=>RUNE_KO[c]).join(" + ")} 포함 <button class="linkbtn" data-clear-runes>선택 해제</button>`:""} · 괄호 안 ‘상급’은 상급 옵션이 붙었을 때 수치</p>
+  <div class="results">${list.map(r=>rwCard(r,"")).join("")||`<p class="empty">선택한 룬이 모두 들어가는 룬워드가 없습니다.</p>`}</div>
+  <h2 class="sec">룬워드·큐브 팁</h2>
+  <div class="tips">
+   <section><h3>룬워드로 만든 고유 아이템</h3><ul>
+    <li>마법부여, 담금질, 명품화, 변성(선변성) 모두 가능합니다. 단, 변성한 뒤에는 신화 업그레이드를 할 수 없습니다.</li>
+    <li>호라드릭 큐브로 신화 아이템으로 업그레이드할 수 있습니다(변성 전에만). 이렇게 만든 신화는 ‘제작 아이템’이 되어 중복 착용이 안 됩니다.</li>
+    <li>룬워드 제작·융합 때 낮은 확률로 신화 룬워드 고유가 나옵니다.</li>
+    <li>제작할 때 룬은 한꺼번에 넣어도 됩니다.</li>
+    <li>시즌15 전용 아이템이며, 영구 콘텐츠로 남을지는 미정입니다.</li></ul></section>
+   <section><h3>추천 업그레이드 순서</h3><ul>
+    <li>룬워드 제작(소켓) → 담금질 → 명품화 → 신화 업그레이드(벼락불 5개) → 마법부여 → 마지막에 변성</li></ul></section>
+   <section><h3>모든 부위 신화 착용하기</h3><ul>
+    <li>제작 신화(신화 업그레이드한 룬워드)는 원래 1개만 착용할 수 있습니다.</li>
+    <li>같은 제작 신화 3개를 큐브로 조합하면 제작 표시가 사라져 중복 착용이 가능해집니다.</li>
+    <li>부위당 벼락불 15개면 담금질된 원하는 신화를 전 부위에 낄 수 있습니다.</li></ul></section>
+   <section><h3>최대치 방어·보조 위상 얻기</h3><ul>
+    <li>아무 선조 고유 목걸이를 신화로 업그레이드(벼락불 5개)하거나 일반 옵션 신화 목걸이를 준비합니다.</li>
+    <li>쿨레 분광경으로 원하는 방어 또는 보조 위상을 바른 뒤 대장장이에서 분해하면 최대치 위상을 얻습니다.</li></ul></section>
+  </div>`;
+  out.innerHTML=h;
+}
+
 function renderBoss(n){
   const b=bossByName[n];if(!b)return;
+  if(tab!=="drops"){tab="drops";setTabUI()}
   const rows=CLASSES.map((c,i)=>(cls==="전체"||cls===c)?`<tr><th>${c}</th><td>${b.d[i].split(",").map(x=>`<button data-item="${esc(x.trim())}">${esc(x.trim())}</button>`).join(", ")}</td></tr>`:"").join("");
   out.innerHTML=`<div class="bossview"><button class="back" data-home>← 전체 우두머리</button>
   <h2 class="sec" style="margin-top:4px">${esc(b.n)}<small>${esc(b.tier)} · ${esc(b.req)}</small></h2>
@@ -236,23 +398,41 @@ function renderBoss(n){
   <p class="note" style="margin-top:12px">한 번 잡을 때 목록이 모두 나오거나 확정 드랍되는 것은 아닙니다. 신화 고유는 별도 확률로 함께 나옵니다.</p></div>`;
   window.scrollTo({top:0});
 }
+function setTabUI(){
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab===tab));
+  chipsEl.hidden=tab!=="drops";
+}
 
 function render(){
   const raw=q.value;clearBtn.hidden=!raw;
-  if(!norm(raw)){renderHome();return}
-  const res=search(raw);
-  out.innerHTML=`<p class="count">${res.length}개 아이템${cls!=="전체"?` · ${cls} 기준`:""}</p>`+
-   (res.length?`<div class="results">${res.slice(0,60).map(it=>itemCard(it,raw)).join("")}</div>`:`<p class="empty">“${esc(raw)}”에 해당하는 아이템이 없습니다. 띄어쓰기 없이 일부만 입력하거나 초성으로 검색해 보세요${cls!=="전체"?", 또는 직업 필터를 ‘전체’로 바꿔 보세요":""}.</p>`);
+  if(!norm(raw)){tab==="drops"?renderDropsHome():renderRunewordsHome();return}
+  const items=searchItems(raw),rws=searchRunewords(raw),rune=matchRune(raw);
+  const itemBlock=items.length?`<div class="results">${items.slice(0,60).map(it=>itemCard(it,raw)).join("")}</div>`:"";
+  const rwBlock=(rune?runeInfo(rune):"")+rws.map(r=>rwCard(r,raw)).join("");
+  const blocks=[
+    {key:"drops",n:items.length,title:`고유 아이템 ${items.length}개${cls!=="전체"?` · ${cls} 기준`:""}`,html:itemBlock},
+    {key:"runewords",n:rws.length+(rune?1:0),title:`룬워드 ${rws.length}개`,html:rwBlock?`<div class="results">${rwBlock}</div>`:""}
+  ];
+  if(tab==="runewords")blocks.reverse();
+  const shown=blocks.filter(b=>b.n);
+  out.innerHTML=shown.length?shown.map((b,i)=>`<p class="count"${i?' style="margin-top:22px"':""}>${b.title}</p>${b.html}`).join(""):
+   `<p class="empty">“${esc(raw)}”에 해당하는 아이템이나 룬워드가 없습니다. 띄어쓰기 없이 일부만 입력하거나 초성으로 검색해 보세요${cls!=="전체"?", 또는 직업 필터를 ‘전체’로 바꿔 보세요":""}.</p>`;
 }
 
 q.addEventListener("input",render);
 clearBtn.onclick=()=>{q.value="";render();q.focus()};
 out.addEventListener("click",e=>{
+  const rb=e.target.closest("[data-rune]");
+  if(rb){const c=rb.dataset.rune;
+    if(tab==="runewords"&&!norm(q.value)){picked.has(c)?picked.delete(c):picked.add(c)}
+    else{picked=new Set([c]);q.value="";setTab("runewords");window.scrollTo({top:0});return}
+    render();return}
+  if(e.target.closest("[data-clear-runes]")){picked.clear();render();return}
   const bb=e.target.closest("[data-boss]");if(bb){renderBoss(bb.dataset.boss);return}
   const ib=e.target.closest("[data-item]");if(ib){q.value=ib.dataset.item;render();q.focus();return}
   if(e.target.closest("[data-home]")){q.value="";render()}
 });
-render();
+setTab(tab);
 </script>
-
-</body></html>
+</body>
+</html>
